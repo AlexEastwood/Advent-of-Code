@@ -1,30 +1,21 @@
-with open("C:/Users/Alex - Programming/Desktop/Projects/Advent/Advent-of-Code/2020/Day 4/input.txt", "r") as file:
-    passports = [line.rstrip() for line in file]
-    
-x = []
-valid = 0
+import re
+input_file = [row.strip() for row in open('input.txt').readlines()]
+
+passports = []
+entry = ""
 fields = ["byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid"]
+valid = 0
 
-def check_fields(passport):
-    for field in fields:
-            if field not in passport:
-                return False   
-    return True
-
-for passport in passports:
-    if passport != "":
-        x.append(passport)
+for line in input_file:
+    if line != "":
+        entry = entry + " " + line
     else:
-        y = " ".join(x)
-        if check_fields(y):
-            valid += 1
-        x = []
-
-if x != []:
-    y = " ".join(x)
-    if check_fields(y):
+        passports.append(entry)
+        entry = ""
+passports.append(entry)
+        
+for passport in passports:
+    if all(x in passport for x in fields):
         valid += 1
-    x = []
         
 print(valid)
-    

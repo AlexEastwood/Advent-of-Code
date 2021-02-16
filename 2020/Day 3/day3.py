@@ -1,5 +1,5 @@
 
-with open("C:/Users/Alex - Programming/Desktop/Projects/Advent/Advent-of-Code/2020/Day 3/input.txt", "r") as file:
+with open("input.txt", "r") as file:
     slope = [line.rstrip() for line in file]
 
 def ski_run(speed, drop):
