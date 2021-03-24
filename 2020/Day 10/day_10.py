@@ -1,9 +1,9 @@
-numbers = [row.strip() for row in open("test_input.txt", encoding="utf8").readlines()]
+numbers = [row.strip() for row in open("input.txt", encoding="utf8").readlines()]
 
 numbers = [ int(x) for x in numbers ]
 
 numbers = sorted(numbers)
-numbers.insert(0, 0)
+numbers.insert(0,0)
 numbers.append(numbers[-1] + 3)
 
 print(numbers)
@@ -19,35 +19,25 @@ for i in range(len(numbers) - 1):
         three_jolt += 1
         
 print(one_jolt * three_jolt)
-values = [1, 2 ,3]
 
-differences = [0 for x in numbers[:-1]]
+differences = {}
+for i in range(len(numbers)):
+    differences[numbers[i]] = 0
 
-for i in range(len(numbers) - 1):
-    try:
-        if numbers[i + 1] - numbers[i] in values:
-            differences[i] += 1
-    except IndexError:
-        pass
-    try:
-        if numbers[i + 2] - numbers[i] in values:
-            differences[i] += 1
-    except IndexError:
-        pass
-    try:
-        if numbers[i + 3] - numbers[i] in values:
-            differences[i] += 1
-    except IndexError:
-        pass
-        
+differences[numbers[-1]] = 1
+
 print(differences)
-
-total = 0
-for i in range(len(differences) - 1):
-    if total == 0:
-        total += differences[i]
-    else:
-        total *= differences[i]
+    
+for i in range(2, len(numbers) + 1):
+    total = 0
+    if numbers[-i] + 1 in differences:
+        total += differences[numbers[-i] + 1]
+    if numbers[-i] + 2 in differences:
+        total += differences[numbers[-i] + 2]
+    if numbers[-i] + 3 in differences:
+        total += differences[numbers[-i] + 3]
         
-print(total)
-
+    differences[numbers[-i]] = total
+    
+print(differences)
+print(max(differences.values()))
